@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import tasksRepositories from "../repository/tasks.repository.js";
 import taskSchema from "../models/tasks.schema.js";
-import { ResponsePut } from "../protocols/tasks.js";
-
 
 export async function getTasks(req: Request, res: Response) {
   const { status } = req.query;
@@ -17,7 +15,7 @@ export async function getTasks(req: Request, res: Response) {
       return res.send(task.rows);
     }
   } catch (err) {
-    return res.send({MessageErrors:"Error"});
+    return res.send({ MessageErrors: "Error" });
   }
 }
 
@@ -40,19 +38,18 @@ export async function createTask(req: Request, res: Response) {
 
 export async function updateStatus(req: Request, res: Response) {
   const { id } = req.params;
-console.log(id)
+  console.log(id);
   try {
     if (!id) {
       return res.status(400).send("Esse card não existe");
     }
     const cardsExists = await tasksRepositories.cardExists(Number(id));
-    if(cardsExists.rowCount === 0){
+    if (cardsExists.rowCount === 0) {
       return res.send("Essa tarefa não existe!");
     }
     const responsePut = await tasksRepositories.updateStatusCard(Number(id));
 
-
-    return res.send({responsePut:"Card atualizado com sucesso!"});
+    return res.send({ responsePut: "Card atualizado com sucesso!" });
   } catch (err) {
     return res.status(400).send(err);
   }
@@ -65,12 +62,12 @@ export async function deleteCard(req: Request, res: Response) {
       return res.status(400).send("Esse card não existe");
     }
     const cardsExists = await tasksRepositories.cardExists(Number(id));
-    if(cardsExists.rowCount === 0){
+    if (cardsExists.rowCount === 0) {
       return res.send("Essa tarefa não existe!");
     }
     const responseDelete = await tasksRepositories.deleteCard(Number(id));
-    
-    return res.send({responseDelete,mesage:"Card deletado com sucesso!"});
+
+    return res.send({ responseDelete, mesage: "Card deletado com sucesso!" });
   } catch (err) {
     return res.status(400).send(err);
   }
