@@ -1,0 +1,36 @@
+{
+  "name": "trellado",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "To-do list manager for team projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeccaVieira/trellado.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeccaVieira/trellado/issues"
+  },
+  "homepage": "https://github.com/DeccaVieira/trellado#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "joi": "^17.7.0",
+    "pg": "^8.8.0",
+    "pkg": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/pg": "^8.6.6",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.4"
+  }
+}
