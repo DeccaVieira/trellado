@@ -12,3 +12,18 @@ export type ResponseDel = {
 export type ResponsePut = {
   messagePut : string
 }
+export type ResponsePutSuccess = {
+  messagePut : string
+}
+
+export type ResponseGet = {
+  messagePut : string
+}
+
+export type ResponsePost = {
+  messagePut : string
+}
+
+export type MessageErrors = {
+  messageError: string
+}
