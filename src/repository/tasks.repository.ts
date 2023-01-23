@@ -1,14 +1,23 @@
 import { connectionDB } from "../database/db.js";
 
-function repositoryCreate(description, deadline){
+async function repositoryCreate(description:string, deadline:string){
 return connectionDB.query(`
    INSERT INTO tasks (description, deadline, username_responsible, status)
    VALUES ($1,$2,$3,$4)`, 
-   [description, deadline, "anonymous", "Not Done"]
+   [description, deadline, "anonymous", "notdone"]
 )
 }
 
+async function getTasksByStatus(status){
+  return connectionDB.query(`
+  SELECT * FROM tasks WHERE status = $1
+  `,[status])
+}
+
+
+
 const tasksRepositories = {
-  repositoryCreate
+  repositoryCreate,
+  getTasksByStatus
 }
 export default tasksRepositories;
