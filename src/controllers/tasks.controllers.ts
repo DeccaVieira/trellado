@@ -3,6 +3,7 @@ import tasksRepositories from "../repository/tasks.repository.js"
 import taskSchema from "../models/tasks.schema.js"
 
 
+
 export async function getTasks(req: Request, res:Response){
   const {status} = req.query;
   try{
@@ -62,13 +63,12 @@ await tasksRepositories.updateStatusCard(Number(id));
 
 export async function deleteCard (req:Request, res:Response) {
   const {id} = req.params;
-
   try{
     if(!id){
       return res.status(400).send("Esse card não existe");
     }
-await tasksRepositories.deleteCard(Number(id));
-  return res.status(200).send("Card excluído com sucesso!")
+    const responseDelete = await tasksRepositories.deleteCard(Number(id));
+  return res.send({responseDelete:"Card deletado com sucesso!"})
   }catch (err) {
     return res.status(400).send(err);
   }

@@ -6,3 +6,9 @@ export type Task = {
   status: string,
 last_update:Date
 }
+export type ResponseDel = {
+  messageDelete : string
+}
+export type ResponsePut = {
+  messagePut : string
+}
