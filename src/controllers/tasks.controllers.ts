@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import tasksRepositories from "../repository/tasks.repository.js"
 import taskSchema from "../models/tasks.schema.js"
-import { string } from '../../node_modules/joi/lib/index.js';
+
 
 export async function getTasks(req: Request, res:Response){
   const {status} = req.query;
@@ -47,7 +47,7 @@ export async function updateStatus (req:Request, res:Response) {
 
   try{
     if(!id){
-      return res.status(400).send("Preencha esse campo corretamente");
+      return res.status(400).send("Esse card não existe");
     }
 await tasksRepositories.updateStatusCard(id);
 
@@ -58,3 +58,17 @@ await tasksRepositories.updateStatusCard(id);
   }
 }
 
+export async function deleteCard (req:Request, res:Response) {
+  const {id} = req.params;
+
+  try{
+    if(!id){
+      return res.status(400).send("Esse card não existe");
+    }
+await tasksRepositories.deleteCard(id);
+  return res.status(200).send("Card excluído com sucesso!")
+  }catch (err) {
+    return res.status(400).send(err);
+  }
+
+}

@@ -19,10 +19,17 @@ async function getTasksByStatus(status){
   `, [id])
  }
 
+ async function deleteCard(id) {
+  return connectionDB.query(`
+  DELETE FROM tasks WHERE id = $1
+  `, [id])  
+ }
+
 
 const tasksRepositories = {
   repositoryCreate,
   getTasksByStatus,
-  updateStatusCard
+  updateStatusCard,
+  deleteCard
 }
 export default tasksRepositories;
