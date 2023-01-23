@@ -13,11 +13,16 @@ async function getTasksByStatus(status){
   SELECT * FROM tasks WHERE status = $1
   `,[status])
 }
-
+ async function updateStatusCard(id){
+  return connectionDB.query(`
+  UPDATE tasks SET status = 'done' WHERE id = $1
+  `, [id])
+ }
 
 
 const tasksRepositories = {
   repositoryCreate,
-  getTasksByStatus
+  getTasksByStatus,
+  updateStatusCard
 }
 export default tasksRepositories;

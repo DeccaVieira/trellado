@@ -9,10 +9,9 @@ export async function getTasks(req: Request, res:Response){
   try{
     if(status){
       const task = await tasksRepositories.getTasksByStatus(status);
-      
-      //return res.sendStatus(200) ;
-      
-      console.log(task);
+      if (task.rows.length === 0) {
+        return res.status(404).send(`Cards com status ${status} não existe!`);
+      }
    return res.send(task.rows)
 }
   }catch (err) {
@@ -42,3 +41,20 @@ export async function createTask(req:Request, res:Response){
     return res.status(400).send(err);
   }
 }
+
+export async function updateStatus (req:Request, res:Response) {
+  const {id} = req.params;
+
+  try{
+    if(!id){
+      return res.status(400).send("Preencha esse campo corretamente");
+    }
+await tasksRepositories.updateStatusCard(id);
+
+
+  return res.status(200).send("Card concluído com sucesso!")
+  }catch (err) {
+    return res.status(400).send(err);
+  }
+}
+
