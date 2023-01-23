@@ -5,11 +5,12 @@ import taskSchema from "../models/tasks.schema.js"
 
 export async function getTasks(req: Request, res:Response){
   const {status} = req.query;
-  
   try{
     if(status){
-      const task = await tasksRepositories.getTasksByStatus(status);
-      if (task.rows.length === 0) {
+      const task = await tasksRepositories.getTasksByStatus(String(status));
+      console.log(task.rows);
+      
+      if (task.rowCount === 0) {
         return res.status(404).send(`Cards com status ${status} não existe!`);
       }
    return res.send(task.rows)
@@ -23,6 +24,7 @@ export async function getTasks(req: Request, res:Response){
 }
 
 export async function createTask(req:Request, res:Response){
+
   const { description, deadline} = req.body;
 
   try{
@@ -35,7 +37,7 @@ export async function createTask(req:Request, res:Response){
   }
   
   await tasksRepositories.repositoryCreate(description, deadline);
-  return res.sendStatus(200);
+  return res.send("Task inserida com sucesso!");
 
   } catch (err) {
     return res.status(400).send(err);
@@ -49,7 +51,7 @@ export async function updateStatus (req:Request, res:Response) {
     if(!id){
       return res.status(400).send("Esse card não existe");
     }
-await tasksRepositories.updateStatusCard(id);
+await tasksRepositories.updateStatusCard(Number(id));
 
 
   return res.status(200).send("Card concluído com sucesso!")
@@ -65,7 +67,7 @@ export async function deleteCard (req:Request, res:Response) {
     if(!id){
       return res.status(400).send("Esse card não existe");
     }
-await tasksRepositories.deleteCard(id);
+await tasksRepositories.deleteCard(Number(id));
   return res.status(200).send("Card excluído com sucesso!")
   }catch (err) {
     return res.status(400).send(err);
