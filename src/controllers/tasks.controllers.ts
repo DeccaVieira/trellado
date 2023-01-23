@@ -22,7 +22,7 @@ export async function getTasks(req: Request, res: Response) {
 }
 
 export async function createTask(req: Request, res: Response) {
-  const { description, deadline } = req.body;
+  const { description } = req.body;
 
   try {
     const { error } = taskSchema.validate(req.body, { abortEarly: false });
